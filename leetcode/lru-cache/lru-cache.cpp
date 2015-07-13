@@ -111,4 +111,4 @@ int main()
     cout << "ans " << (s.get(2)) << endl;
     return 0;
 }
-
+// other solution http://fisherlei.blogspot.com/2013/11/leetcode-lru-cache-solution.html
