@@ -1,16 +1,20 @@
+#!/bin/bash
 # append /home/roowe/acm/bin to $PATH
 ac_cc() {
-    g++ -std=c++11 -g -o /tmp/$1 $1.cpp
+    g++ -std=c++11 -g -o /tmp/$name $filepath
 }
 ac_run() {
+    current=`pwd`
+    cd $data_dir
     if [[ -d data ]]; then
         for data in data/$1.*.in; do
             echo "--------------------" $data "--------------------"
-            /tmp/$1 < $data
+            /tmp/$name < $data
         done;
     else
-        /tmp/$1
+        /tmp/$name
     fi
+    cd $current
 }
 help()
 {
@@ -18,14 +22,16 @@ help()
     echo "$0 run problem"
     echo "$0 test problem"
 }
+filepath=$2
+name=`basename $filepath .cpp`
+data_dir=`dirname $filepath`
 case $1 in
     'cc')
-        ac_cc $2;;
+        ac_cc;;
     'run')
         ac_run $2;;
     'test')
-        ac_cc $2
-        ac_run $2;;
+        ac_cc $2 && ac_run $2;;
     *)
         help;;
 esac
