@@ -86,7 +86,11 @@ public:
         for (;head != NULL; head=head->next, l++);
         return l;
     }
+    // also slove https://leetcode.com/problems/reverse-linked-list/
     ListNode* reverse(ListNode* head) {
+        if (head == NULL) {
+            return NULL;
+        }
         ListNode* cur = head->next;
         ListNode* pre = head;
         pre->next = NULL;
