@@ -67,7 +67,8 @@ public:
                 cur->next = pre;
                 reverse_last->next=head;
                 cur = head;
-                head = head->next;
+                if (head)
+                    head = head->next;
             } else {
                 cur->next = head;
                 cur = cur->next;
@@ -95,7 +96,7 @@ int main()
     cout << "-------" << endl;
     Solution s;
     cur = node_list;
-    cur = s.reverseBetween(cur,2,5);
+    cur = s.reverseBetween(cur,1,11);
     while(cur != NULL) {
         cout << cur << endl;
         cur = cur->next;
