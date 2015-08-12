@@ -39,43 +39,38 @@ struct ListNode {
     ListNode(int x) : val(x), next(NULL) {}
     ListNode() : val(0), next(NULL) {}    
 };
-
+struct Input{
+    int n;
+    int* arr;
+    int l;
+    int r;
+};
 class Solution {
 public:
     ListNode* reverseBetween(ListNode* head, int m, int n) {
         ListNode* fake_head = new ListNode(-1);
-        ListNode* cur = fake_head;
+        fake_head->next = head;
+        ListNode* pre = fake_head;
         int i=1;
-        while(head) {
-            // cout << "head -> " << head << endl;
-            if (i == m) {
-                ListNode* reverse_last = head;
-                ListNode* pre = head;
-                head = head->next;
-                i++;
-                while (i<=n) {
-                    ListNode* post = head->next;
-                    head->next = pre;
-                    pre = head;
-                    head = post;
-                    i++;
-                }
-                // cout << "cur --> " << cur << endl;
-                // cout << "pre --> " << pre << endl;
-                // cout << "head --> " << head << endl;
-                // cout << "head->next --> " << head->next << endl; 
-                cur->next = pre;
-                reverse_last->next=head;
-                cur = head;
-                if (head)
-                    head = head->next;
-            } else {
-                cur->next = head;
-                cur = cur->next;
-                head = head->next;
-                i++;
-            }
-            // if (i>20) break;
+        for (;i<m; i++, pre=pre->next);
+        if (!pre->next) {
+            return fake_head->next;
+        }
+
+        ListNode* end = pre->next;
+        ListNode* cur = end->next;
+        // node_1...node_m
+        //            pre,end,...cur...node_n
+        //            pre,pre_next,...,end,...cur...node_n
+        
+        for (; i<n; i++) {
+            ListNode* post = cur->next;            
+            // 在pre插入cur
+            cur->next = pre->next;
+            pre->next = cur;
+            //跳过cur
+            end->next = post;
+            cur = post;
         }
         return fake_head->next;
     }
@@ -83,23 +78,38 @@ public:
 
 int main()
 {
+    int array[100];
+    int l, r;
+    int n;
     ListNode node_list[100];
-    for (int i=0; i<10; i++) {
-        node_list[i].val=i;
-        node_list[i].next = &node_list[i+1];
-    }
-    ListNode* cur = node_list;
-    while(cur != NULL) {
-        cout << cur << endl;
-        cur = cur->next;
-    }
-    cout << "-------" << endl;
-    Solution s;
-    cur = node_list;
-    cur = s.reverseBetween(cur,1,11);
-    while(cur != NULL) {
-        cout << cur << endl;
-        cur = cur->next;
+    while (cin >> n) {
+        for (int i=0; i<n; i++) {
+            cin >> array[i];
+        }
+        cin >> l >> r;
+        cout << "n: " << n
+             << ", l: " << l
+             << ", r: " << r
+             << endl;
+        for (int i=0; i<n; i++) {
+            node_list[i].val=array[i];
+            node_list[i].next = &node_list[i+1];
+        }
+        node_list[n-1].next = NULL;
+        ListNode* cur = node_list;
+        while(cur != NULL) {
+            cout << cur->val << endl;
+            cur = cur->next;
+        }
+        cout << "-------" << endl;
+        Solution s;
+        cur = node_list;
+        cur = s.reverseBetween(cur, l, r);
+        while(cur != NULL) {
+            cout << cur->val << endl;
+            cur = cur->next;
+        }
+        cout << "--------------------分割线--------------------" << endl;
     }
     return 0;
 }

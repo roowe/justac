@@ -7,7 +7,7 @@ ac_run() {
     current=`pwd`
     cd $data_dir
     if [[ -d data ]]; then
-        for data in data/$1.*.in; do
+        for data in data/*.in; do
             echo "--------------------" $data "--------------------"
             /tmp/$name < $data
         done;
