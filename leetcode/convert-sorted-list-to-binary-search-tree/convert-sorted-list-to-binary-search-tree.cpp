@@ -77,10 +77,12 @@ void debug_bst(TreeNode* root)
 {
     if (!root)
         return;
-    debug_bst(root->left);
+    if (!root->left && !root->right)
+        return;
+
     cout << "root: " << root 
          << ", root->val: " << root->val;
-    if (root->left)
+    if (root->left) 
         cout << ", left: " << root->left->val;
     else
         cout << ", left: NULL";
@@ -88,6 +90,9 @@ void debug_bst(TreeNode* root)
         cout << ", right: " << root->right->val << endl;
     else
         cout << ", right: NULL" << endl;
+
+    debug_bst(root->left);
+    
     debug_bst(root->right);    
 }
 int main()
