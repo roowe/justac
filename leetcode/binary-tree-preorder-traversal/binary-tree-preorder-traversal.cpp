@@ -85,23 +85,38 @@ private:
     vector<int> ret;
 public:
     vector<int> preorderTraversal(TreeNode* root) {
+        return preorderTraversal2(root);
+    }
+    vector<int> preorderTraversal2(TreeNode* root) {
+        ret.clear();
+        stack<TreeNode*> s;
+        while (s.size()>0 || root != NULL) {
+            if (root) {
+                ret.push_back(root->val);
+                if (root->right) {
+                    s.push(root->right);
+                }
+                root = root->left;
+            } else {
+                root = s.top();
+                s.pop();
+            }
+        }
+        return ret;
+    }
+
+    vector<int> preorderTraversal1(TreeNode* root) {
         ret.clear();
         g(root);
         return ret;
     }
-
-    // vector<int> preorderTraversal(TreeNode* root) {
-    //     ret.clear();
-    //     g(root);
-    //     return ret;
-    // }
-    // void g(TreeNode* root) {
-    //     if (!root)
-    //         return;
-    //     ret.push_back(root->val);
-    //     g(root->left);
-    //     g(root->right);
-    // }
+    void g(TreeNode* root) {
+        if (!root)
+            return;
+        ret.push_back(root->val);
+        g(root->left);
+        g(root->right);
+    }
 };
 int main()
 {
