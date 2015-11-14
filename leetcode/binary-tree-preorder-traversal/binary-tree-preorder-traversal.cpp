@@ -85,7 +85,31 @@ private:
     vector<int> ret;
 public:
     vector<int> preorderTraversal(TreeNode* root) {
-        return preorderTraversal2(root);
+        return preorderTraversal3(root);
+    }
+    vector<int> preorderTraversal3(TreeNode* root) {
+        ret.clear();
+        TreeNode* cur = root;
+        while (cur) {
+            if (cur->left == NULL) {
+                ret.push_back(cur->val);
+                cur = cur->right;
+            } else {
+                TreeNode* pre = cur->left;
+                while (pre->right != NULL && pre->right != cur) {
+                    pre = pre->right;
+                }
+                if (pre->right == NULL) {
+                    ret.push_back(cur->val);
+                    pre->right = cur;
+                    cur = cur->left;
+                } else {
+                    pre->right = NULL;
+                    cur = cur->right;
+                }
+            }
+        }
+        return ret;
     }
     vector<int> preorderTraversal2(TreeNode* root) {
         ret.clear();
