@@ -54,23 +54,24 @@ public:
             if(cur == end) {
                 return d;
             }
+            // bfs 找该单词一次转变的相邻的单词
+
             for (int i=0; i<cur.length(); i++) {
-                char * cur_char_arr = new char [cur.length()+1];
-                strcpy (cur_char_arr, cur.c_str());
+                int tmp = cur[i];
                 for (int j='a'; j<='z'; j++) {
-                    cur_char_arr[i] = j;
-                    string n_str = string(cur_char_arr);
-                    auto got = dict.find(n_str);
+                    cur[i] = j;
+                    auto got = dict.find(cur);
                     if (got != dict.end()) {
                         //myout <<  *got << endl;
                         q.push(*got);
                         len.push(d+1);
                         dict.erase(*got);
                     }
-                    if (n_str == end) {
+                    if (cur == end) {
                         return d+1;
                     }
                 }
+                cur[i] = tmp;
             }         
         }
         return 0;
