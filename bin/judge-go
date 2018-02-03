@@ -34,9 +34,9 @@ case $1 in
     'cc')
         ac_cc;;
     'run')
-        ac_run $2;;
+        ac_run;;
     'test')
-        ac_cc $2 && ac_run $2;;
+        ac_cc && ac_run ;;
     *)
-        ac_cc $2 && ac_run $2;;
+        ac_cc && ac_run ;;
 esac
