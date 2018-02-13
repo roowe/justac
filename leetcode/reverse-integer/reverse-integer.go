@@ -1,8 +1,4 @@
-package main
-
-import "fmt"
-
-
+package ac
 
 func reverse(x int) int {
     ret := 0   
@@ -19,8 +15,8 @@ func reverse(x int) int {
     }  
 }
 
-func main() {
-   fmt.Println(reverse(123456))
-   fmt.Println(reverse(-123456))
-   fmt.Println(reverse(127000))
-}
+// func main() {
+//    fmt.Println(reverse(123456))
+//    fmt.Println(reverse(-123456))
+//    fmt.Println(reverse(127000))
+// }
