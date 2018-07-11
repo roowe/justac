@@ -1,0 +1,21 @@
+#!/bin/bash
+gosrc=$1
+shift 
+for d in $@; do
+    echo "run 'go run $gosrc < $d'"
+    echo "----------------------------------------"
+    echo -e "\033[36mINPUT \033[0m"
+
+    cat $d
+    echo "----------------------------------------"
+    echo -e "\033[36mOUTPUT \033[0m"
+
+    go run $gosrc < $d
+    ret=$?
+    echo ""
+    echo "----------------------------------------"
+    echo ""
+    if [[ $ret != 0 ]]; then
+        break
+    fi
+done
